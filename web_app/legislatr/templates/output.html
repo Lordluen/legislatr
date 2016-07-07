@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>Welcome to Legislatr</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/css/starter-template.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/static/css/navbar_style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/red_section.css">
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display:900italic' rel='stylesheet' type='text/css'>
+  </head>
+
+<style>
+
+body {
+  padding: 40px 0px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 255, 1);
+  color: #fff;
+  border-radius: 2px;
+}
+
+.d3-tip2 {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 127, 0, 1);
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 1);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+</style>
+
+
+<body>
+
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Legislatr</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <!-- No longer in use.
+            <li><a href="#section1">Prediction</a></li>
+            <li><a href="#section2">Money Trail</a></li>
+            -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<br><br>
+
+<div class="container-fluid">
+     <h1 class="text-center" style="font-family: 'Playfair Display', serif; font-size: 60px;">Legislatr</h1>
+     <br>
+     <br>
+</div>
+
+<!-- Prediction area of the page -->
+
+<div class="red_section" id="section1">
+    <br>
+    <h2 class="text-center v-center" style="color: #ffffff;">Prediction</h2>
+    <br>
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-4">
+	<br>
+        <div class="text-left">
+            <p>Would you like to check a different bill?</p>
+        </div>
+    
+        <div class = "container">
+            <form  action="/input" method="GET">
+                <div class="form-group">
+                    <label for="congress">Congress Number: </label>
+                    <select name='congress' id="congress" type="text" disabled>
+                        <option value="{{congress}}" selected>{{congress}}</option>
+                        <option value="111">111</option>
+                        <option value="112">112</option>
+                        <option value="113">113</option>
+                        <option value="114">114</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bill_type">Congressional House: </label>
+                    <select name='bill_type' id="bill_type" type="text" disabled>
+                        <option value="{{bill_type}}" selected>{{bill_type}}</option>
+                        <option value="hr">House of Representatives</option>
+                        <option value="s">Senate</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bill_number">Bill number:</label>
+                    <select name='bill_number' id="bill_number" type="text" disabled>
+                        <option value="{{bill_number}}" selected>{{bill_number}}</option>
+                    </select>
+                    <!--
+                    <input type="text" id="bill_number" name='bill_number' placeholder="1234">
+                    -->
+                </div>
+    
+                <div>
+                    <button type="submit" class="btn btn-default btn-lg">Start Over!</button>
+                </div>
+                <br><br>
+          </form>
+        </div>
+    </div> <!-- left column -->
+    <div class="col-md-4">
+        <div class="text-center">
+            <h3>Full Title:</h3>
+            <p>{{bill_title|safe}}</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="text-center" style="font-size: 30px">
+            <!--<h3>Results: {{the_result}}</h3>-->
+            <br>
+            <span class="glyphicon {{img_file}}" aria-hidden="true" style="color: {{img_color}} ; font-size: 300%;"></span>
+            <h2 style="color: {{img_color}}; font-size: 40px;"><b>{{the_result}}</b></h2>
+            <h3>Probability of Passing: {{the_confidence}}%</h3>
+        </div>
+    </div> <!-- right column -->
+</div> <!-- /.container-->
+
+<div class="red_section" >
+    <div class="container-fluid" id="section2" style="background-color: #ff0000;">
+        <div class="row">
+            <h1 class="text-center v-center" style="color: #ffffff;">Money</h1>
+            <p class="text-center v-center" style="color: #ffffff;">Select contributor from drop down menu below to see a breakdown of their influence over legislators. Only the top ten most influential contributors for this bill are shown.</p>
+        </div>
+    </div>
+</div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4" id="area1">
+                <div class="text-left">
+                    <h3>Breakdown of contributions for this bill.</h3>
+                    <p>Select contributor from drop down menu below to see breakdown.</p>
+                </div>
+                <form action="/output2" method="GET">
+                    <div class="form-group">
+                        <label for="contributor">Influential Contributors:</label>
+                        <select name="contributor" id="contributor" type="text" onchange="this.form.submit()">
+                            <option value="0" selected>{{funders[0]|safe}}</option>
+                            {% for con in funders %}
+                            <option value="{{loop.index-1}}">{{con|safe}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                <div class="form-group">
+                    <input type="hidden" name="data_file" value="{{data_file}}">
+                </div>
+
+                </form>
+            </div>
+            <div class="col-md-8" id="area2">
+		<br>
+                <div class="text-center">
+                    <p>This is a breakdown of the selected contributor in both USD (green bars) and % of total contributions tied to this bill (blue bars).</p>
+                </div>
+                <script>
+        var margin = {top: 40, right: 100, bottom: 300, left: 200},
+        width = 1000 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
+
+        var formatDollar = d3.format("$.");
+
+        var formatPercent = d3.format(".%");
+
+        var x = d3.scale.ordinal()
+            .rangeRoundBands([0, width], .1);
+
+
+        var y1 = d3.scale.linear()
+            .range([height, 0]);
+
+        var y2 = d3.scale.linear()
+            .range([height, 0]);
+
+        var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+        var yAxisLeft = d3.svg.axis()
+            .scale(y1)
+            .orient("left");
+            //.tickFormat(formatDollar);
+
+        var yAxisRight = d3.svg.axis()
+            .scale(y2)
+            .orient("right")
+            .tickFormat(formatPercent);
+
+        var tip = d3.tip()
+          .attr('class', 'd3-tip2')
+          .offset([-10, 0])
+          .html(function(d) {
+            return "<strong>Contribution: $</strong> <span style='color:white'>" + d.Contribution + "</span>";
+          })
+
+        var tip2 = d3.tip()
+          .attr('class', 'd3-tip')
+          .offset([-10, 0])
+          .html(function(d) {
+            return "<strong>Influence </strong> <span style='color:white'>" + d.Influence + "</span><strong>%</strong>";
+          })
+
+        function synchronizedMouseOver1(d) {
+            var bar = d3.select(this)
+                .style("fill","red");
+            tip.show(d);
+        };
+
+        function synchronizedMouseOver2(d) {
+            var bar = d3.select(this)
+                .style("fill","red");
+            tip2.show(d);
+        };
+
+        function synchronizedMouseOut1(d) {
+            var bar = d3.select(this)
+                .style("fill","green");
+            tip.hide(d);
+        };
+
+        function synchronizedMouseOut2(d) {
+            var bar = d3.select(this)
+                .style("fill","blue");
+            tip2.hide(d);
+        };
+        var svg = d3.select("#area2").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
+        svg.call(tip);
+        svg.call(tip2);
+        
+
+        d3.tsv("/static/data.tsv?nocache="+(new Date()).getTime(), type, function(error, data) {
+          x.domain(data.map(function(d) { return d.Legislator; }));
+          y1.domain([0, d3.max(data, function(d) { return d.Contribution; })]);
+          y2.domain([0, d3.max(data, function(d) { return d.Influence; })]);
+        
+        
+          svg.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis)
+              .selectAll("text")
+              .style("text-anchor", "end")
+              .attr("dx", "-.8em")
+              .attr("dy", ".15em")
+              .attr("transform", function (d) { return "rotate(-65)"
+              });
+        
+          svg.append("g")
+              .attr("class", "y axis axisLeft")
+              .call(yAxisLeft);
+        
+          svg.append("g")
+              .attr("class", "y axis axisRight")
+              .attr("transform", "translate(" + (width+15) + ",0)")
+              .call(yAxisRight);
+        
+          var g = svg.selectAll(".bars")
+                .data(data)
+                .enter().append("g");
+
+          //svg.selectAll(".bar")
+          //    .data(data)
+          //  .enter().append("rect")
+            g.append("rect")
+              .attr("class", "bar")
+              .attr("x", function(d) { return x(d.Legislator); })
+              .attr("width", x.rangeBand()/2)
+              .attr("y", function(d) { return y1(d.Contribution); })
+              .attr("height", function(d) { return height - y1(d.Contribution); })
+              .style("fill", "green" )
+              .on('mouseover', synchronizedMouseOver1)
+              .on('mouseout', synchronizedMouseOut1);
+
+            g.append("rect")
+              .attr("class", "bar")
+              .attr("x", function(d) { return x(d.Legislator) + (x.rangeBand()/2); })
+              .attr("width", x.rangeBand()/2)
+              .attr("y", function(d) { return y2(d.Influence); })
+              .attr("height", function(d) { return height - y2(d.Influence); })
+              .style("fill", 'blue')
+              .on('mouseover', synchronizedMouseOver2)
+              .on('mouseout', synchronizedMouseOut2);
+
+          svg.append("text")
+            .attr("x", (width / 2))
+            .attr("y", 0 - (margin.top / 2))
+            .attr("text-anchor","middle")
+            .style("font-size","22px")
+            .style("text-decoration","underline")
+            .text("{{funders[0]|safe}}");
+
+            svg.append("text")
+                .attr("transform","rotate(-90)")
+                .attr("x", 0 - margin.left)
+                .attr("y", 0 - (2.2*margin.top))
+                .style("text-anchor", "middle")
+                .style("font-size","18px")
+                .text("Contribution (USD)");
+
+            svg.append("text")
+                .attr("transform","rotate(-90)")
+                .attr("x", 0 - margin.left)
+                .attr("y", 0 + (19.5*margin.top))
+                .style("text-anchor", "middle")
+                .style("font-size","18px")
+                .text("Influence (% of total USD from shared contributors)");
+        });
+
+        d3.exit().remove();
+
+        function type(d) {
+          d.Contribution = +d.Contribution;
+          return d;
+        }
+                </script>
+            </div>
+        </div>
+    </div>
+</body></html>
